@@ -5,11 +5,11 @@ const ObjectId = require("mongodb").ObjectId;
 
 productRoutes.route("/products").get(async function (req, res) {
   try {
-    let db_connect = dbo.getDb("store");
-    const name = req.query.name;
-    const sort = req.query.sort;
-    let search = {};
-    let sortCriteria = {};
+    const db_connect = dbo.getDb("store");
+    let name = req.query.name;
+    let sort = req.query.sort;
+    const search = {};
+    const sortCriteria = {};
     if (name) {
       search.name = { $regex: new RegExp(name), $options: "i" };
     }
@@ -35,9 +35,9 @@ productRoutes.route("/products").get(async function (req, res) {
 
 productRoutes.route("/products/:id").get(async function (req, res) {
   try {
-    let db_connect = dbo.getDb("store");
-    let myquery = { _id: ObjectId(req.params.id) };
-    let result = await db_connect.collection("products").findOne(myquery);
+    const db_connect = dbo.getDb("store");
+    const myquery = { _id: ObjectId(req.params.id) };
+    const result = await db_connect.collection("products").findOne(myquery);
     res.json(result);
   } catch (err) {
     console.error(err);
@@ -46,9 +46,9 @@ productRoutes.route("/products/:id").get(async function (req, res) {
 });
 
 productRoutes.route("/products/:id").put(function (req, response) {
-  let db_connect = dbo.getDb("store");
-  let myquery = { _id: ObjectId(req.params.id) };
-  let newValues = {
+  const db_connect = dbo.getDb("store");
+  const myquery = { _id: ObjectId(req.params.id) };
+  const newValues = {
     $set: {
       name: req.body.name,
       description: req.body.description,
@@ -69,7 +69,7 @@ productRoutes.route("/products/:id").put(function (req, response) {
 
 productRoutes.route("/products").post(async function (req, res) {
   try {
-    let db_connect = dbo.getDb("store");
+    const db_connect = dbo.getDb("store");
     let name = req.body.name;
 
     const existingProduct = await db_connect
@@ -80,8 +80,9 @@ productRoutes.route("/products").post(async function (req, res) {
       return;
     }
 
-    let product = {
+    const product = {
       name: name,
+      description: req.body.description,
       price: req.body.price,
       quantity: req.body.quantity,
       unit: req.body.unit,
@@ -97,8 +98,8 @@ productRoutes.route("/products").post(async function (req, res) {
 
 productRoutes.route("/products/:id").delete(async function (req, res) {
   try {
-    let db_connect = dbo.getDb("store");
-    let myquery = { _id: ObjectId(req.params.id) };
+    const db_connect = dbo.getDb("store");
+    const myquery = { _id: ObjectId(req.params.id) };
     const result = await db_connect.collection("products").deleteOne(myquery);
     console.log("1 document deleted");
     res.json(result);
@@ -110,9 +111,9 @@ productRoutes.route("/products/:id").delete(async function (req, res) {
 
 productRoutes.route("/raport").get(async function (req, res) {
   try {
-    let db_connect = dbo.getDb("store");
+    const db_connect = dbo.getDb("store");
     const search = {};
-    const name = req.query.name;
+    let name = req.query.name;
     if (name) {
       search.name = { $regex: new RegExp(name), $options: "i" };
       result = await db_connect
