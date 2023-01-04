@@ -5,7 +5,11 @@ zadanie ze stepika</sup>
 
 <sub>docker start test_example</sub>
 
-<sub>cd server && node server.js</sub>
+<sub>cd server</sub>
+
+<sub>npm i</sub>
+
+<sub>node server.js</sub>
 
 > get
 
