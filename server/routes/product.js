@@ -51,6 +51,7 @@ productRoutes.route("/products/:id").put(function (req, response) {
   let newValues = {
     $set: {
       name: req.body.name,
+      description: req.body.description,
       price: req.body.price,
       quantity: req.body.quantity,
       unit: req.body.unit,
