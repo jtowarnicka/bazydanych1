@@ -79,7 +79,6 @@ productRoutes.route("/products").post(async function (req, res) {
       res.status(400).send("A product with the same name already exists");
       return;
     }
-
     const product = {
       name: name,
       description: req.body.description,
@@ -101,8 +100,11 @@ productRoutes.route("/products/:id").delete(async function (req, res) {
     const db_connect = dbo.getDb("store");
     const myquery = { _id: ObjectId(req.params.id) };
     const result = await db_connect.collection("products").deleteOne(myquery);
-    console.log("1 document deleted");
-    res.json(result);
+    if (result.deletedCount === 0) {
+      res.status(404).send("product not found");
+    } else {
+      res.json(result);
+    }
   } catch (err) {
     console.error(err);
     res.status(500).send(err);
