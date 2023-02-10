@@ -1,7 +1,7 @@
-<sub>mognodb
-zadanie ze stepika</sup>
-
 ### Dzień dobry
+- docker run -d -p 27017:27017 --name test_example mongo:latest
+- cd server
+- npm i 
 
-<sub>docker start test_example</sub>
-
+node server.js
+- ~~config.env :~~ MONGO_URI=mongodb://localhost:27017/test_example PORT=5500
